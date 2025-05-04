@@ -1,9 +1,15 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography, Box, Chip, useTheme } from '@mui/material';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const CountryCard = ({ country }) => {
   const theme = useTheme();
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/country/${country.cca3}`);
+  };
 
   return (
     <motion.div
@@ -12,13 +18,15 @@ const CountryCard = ({ country }) => {
       style={{ height: '100%' }}
     >
       <Card 
+        onClick={handleCardClick}
         sx={{ 
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
           transition: 'all 0.3s ease',
           '&:hover': {
-            boxShadow: theme.shadows[8]
+            boxShadow: theme.shadows[8],
+            cursor: 'pointer'
           },
           minHeight: { xs: 380, sm: 400 },
           maxHeight: { xs: 380, sm: 400 }
