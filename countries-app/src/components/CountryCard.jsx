@@ -1,14 +1,23 @@
 import React from 'react';
-import { Card, CardContent, CardMedia, Typography, Box, Chip, useTheme } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Box, Chip, useTheme, IconButton } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { useFavorites } from '../context/FavoritesContext';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const CountryCard = ({ country }) => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   const handleCardClick = () => {
     navigate(`/country/${country.cca3}`);
+  };
+
+  const handleFavoriteClick = (e) => {
+    e.stopPropagation();
+    toggleFavorite(country);
   };
 
   return (
@@ -32,16 +41,36 @@ const CountryCard = ({ country }) => {
           maxHeight: { xs: 380, sm: 400 }
         }}
       >
-        <CardMedia
-          component="img"
-          image={country.flags.png}
-          alt={`${country.name.common} flag`}
-          sx={{ 
-            height: 180,
-            objectFit: 'cover',
-            borderBottom: `1px solid ${theme.palette.divider}`
-          }}
-        />
+        <Box sx={{ position: 'relative' }}>
+          <CardMedia
+            component="img"
+            image={country.flags.png}
+            alt={`${country.name.common} flag`}
+            sx={{ 
+              height: 180,
+              objectFit: 'cover',
+              borderBottom: `1px solid ${theme.palette.divider}`
+            }}
+          />
+          <IconButton
+            onClick={handleFavoriteClick}
+            sx={{
+              position: 'absolute',
+              top: 8,
+              right: 8,
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 1)',
+              },
+            }}
+          >
+            {isFavorite(country.cca3) ? (
+              <FavoriteIcon color="error" />
+            ) : (
+              <FavoriteBorderIcon />
+            )}
+          </IconButton>
+        </Box>
         <CardContent 
           sx={{ 
             flexGrow: 1,
