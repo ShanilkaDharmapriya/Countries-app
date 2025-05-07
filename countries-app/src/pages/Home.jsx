@@ -25,6 +25,10 @@ import { fetchAllCountries, searchCountries, filterByRegion } from '../services/
 
 const regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
 
+
+
+
+
 const Home = () => {
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -56,6 +60,10 @@ const Home = () => {
       setLoading(false);
     }
   }, []);
+
+
+
+  
 
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
@@ -95,6 +103,9 @@ const Home = () => {
     );
   }
 
+
+
+
   if (error) {
     return (
       <Container maxWidth="lg" sx={{ mt: 4 }}>
@@ -121,6 +132,7 @@ const Home = () => {
             variant="h3" 
             component="h1" 
             sx={{ 
+
               mb: 2,
               fontWeight: 600,
               textAlign: 'center',
@@ -137,6 +149,8 @@ const Home = () => {
               opacity: 0.9,
               fontSize: { xs: '1rem', md: '1.25rem' }
             }}
+
+
           >
             Discover information about countries around the globe
           </Typography>
@@ -153,6 +167,7 @@ const Home = () => {
               alignItems: 'stretch'
             }}
           >
+
             <TextField
               fullWidth
               variant="outlined"
@@ -188,6 +203,7 @@ const Home = () => {
                   height: '100%'
                 }
               }}
+              
             />
             <FormControl 
               sx={{ 
@@ -203,6 +219,7 @@ const Home = () => {
                 '& .MuiSelect-icon': {
                   color: 'white'
                 },
+
                 '& .MuiOutlinedInput-notchedOutline': {
                   border: 'none'
                 },
@@ -243,6 +260,8 @@ const Home = () => {
                     </IconButton>
                   )
                 }
+
+                
               >
                 {regions.map((region) => (
                   <MenuItem key={region} value={region} sx={{ color: 'text.primary' }}>
@@ -255,11 +274,11 @@ const Home = () => {
         </Container>
       </Paper>
 
-      {/* Countries Grid */}
       <Container maxWidth="lg" sx={{ pb: 8 }}>
         {countries.length === 0 ? (
           <Box 
             display="flex" 
+
             justifyContent="center" 
             alignItems="center" 
             minHeight="200px"
